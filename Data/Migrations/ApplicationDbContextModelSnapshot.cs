@@ -24,34 +24,22 @@ namespace DailyNotes.Data.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Content")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Reminders");
+                    b.HasIndex("UserId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Content = "Don't forget the team meeting at 10 AM.",
-                            Title = "Meeting Reminder"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Content = "Visit Dr. Smith at 3 PM.",
-                            Title = "Doctor Appointment"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Content = "Buy milk, eggs, and bread.",
-                            Title = "Grocery Shopping"
-                        });
+                    b.ToTable("Reminders");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -248,6 +236,17 @@ namespace DailyNotes.Data.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("DailyNotes.Models.ReminderModel", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
