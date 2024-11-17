@@ -1,10 +1,25 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model List<DailyNotes.Models.ReminderModel>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <h1>This is Mani your first dotnet core app</h1>
-    <div>Mani it is awesome</div>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<h1 class="text-3xl font-bold underline text-center">Reminders</h1>
+
+<a asp-action="NewReminder" asp-controller="Home">
+    <button class="bg-blue-500 text-white px-4 py-2 rounded">Add New Reminder</button>
+</a>
+
+<table class="table-auto border-collapse border border-gray-200 w-full mt-4">
+    <thead>
+    <tr>
+        <th class="border border-gray-300 px-4 py-2">Title</th>
+        <th class="border border-gray-300 px-4 py-2">Content</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var reminder in Model)
+    {
+    <tr>
+        <td class="border border-gray-300 px-4 py-2">@reminder.Title</td>
+        <td class="border border-gray-300 px-4 py-2">@reminder.Content</td>
+    </tr>
+    }
+    </tbody>
+</table>

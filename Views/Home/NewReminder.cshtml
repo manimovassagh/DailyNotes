@@ -1,0 +1,26 @@
+@model DailyNotes.Models.ReminderModel
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add New Reminder</title>
+</head>
+<body>
+<h1>Add New Reminder</h1>
+
+<form method="post" asp-action="Create" asp-controller="Home">
+    <div>
+        <label for="Title">Title:</label>
+        <input type="text" id="Title" name="Title" required />
+    </div>
+    <div>
+        <label for="Content">Content:</label>
+        <textarea id="Content" name="Content" required></textarea>
+    </div>
+    <button type="submit">Save Reminder</button>
+</form>
+
+<br />
+<a asp-action="Index" asp-controller="Home">Back to List</a>
+</body>
+</html>
